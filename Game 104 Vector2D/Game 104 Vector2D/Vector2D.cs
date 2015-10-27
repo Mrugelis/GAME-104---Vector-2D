@@ -53,23 +53,32 @@ namespace Game_104_Vector2D
         }
     
 
-        public void AddVector(double xValue, double yValue)
+        public Vector2D AddVector(double xValue, double yValue)
         {
-            Y += yValue;
-            X += xValue;
+            double addY = Y + yValue;
+            double addX = X + xValue;
+            Vector2D addV = new Vector2D(addX, addY);
+            
+            return addV;            
         }
 
-        public void SubtractVector(double xValue, double yValue)
+        public Vector2D SubtractVector(double xValue, double yValue)
         {
-            Y -= yValue;
-            X -= xValue;
+            double subtractY = Y - yValue;
+            double subtractX = X - xValue;
+            Vector2D subtractV = new Vector2D(subtractX, subtractY);
+            
+            return subtractV;
         }
 
-        public void ScalarMultiplication(double scalar)
+        public Vector2D ScalarMultiplication(double scalar)
         {
 
-            X *= scalar;
-            Y *= scalar;            
+            double scalarY = Y + scalar;
+            double scalarX = X * scalar;
+            Vector2D scalarV = new Vector2D(scalarX, scalarY);
+            
+            return scalarV;           
         }
 
         public double GetMagnitude()
@@ -88,14 +97,16 @@ namespace Game_104_Vector2D
         }
 
         //past this is assigment part 2
-        public void Normalize()
+        public Vector2D Normalize()
         {
             //Divide the vector by it’s magnitude. 
             //This ensures that the vector magnitude 
             //is equal to one 
-
-            X /= GetMagnitude();
-            Y /= GetMagnitude();
+            double normalX =  X /= GetMagnitude();
+            double normalY =  Y /= GetMagnitude();
+            Vector2D normalV = new Vector2D(normalX, normalY);
+           
+            return normalV;
 
         }
 
