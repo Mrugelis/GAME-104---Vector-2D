@@ -102,8 +102,8 @@ namespace Game_104_Vector2D
             //Divide the vector by it’s magnitude. 
             //This ensures that the vector magnitude 
             //is equal to one 
-            double normalX =  X /= GetMagnitude();
-            double normalY =  Y /= GetMagnitude();
+            double normalX =  X / GetMagnitude();
+            double normalY =  Y / GetMagnitude();
             Vector2D normalV = new Vector2D(normalX, normalY);
            
             return normalV;
@@ -126,7 +126,7 @@ namespace Game_104_Vector2D
             return Math.Acos(GetDotProduct(otherVector) / (GetMagnitude() * otherVector.GetMagnitude()));
         }
 
-        public void Lerp(Vector2D otherVector, double t)
+        public Vector2D Lerp(Vector2D otherVector, double t)
         {
             //This stands for Linear IntERPolation. 
             //It basically walks you along a straight line from one position to another using a 
@@ -137,17 +137,27 @@ namespace Game_104_Vector2D
             //Then add this vector to the initial starting position A
             //Here is another method which is simpler to use, but is exactly the same as above:
             //New vector = (1 - t)A + tB
+            Vector2D lerpV;
+            lerpV = SubtractVector(ScalarMultiplication(t).X, ScalarMultiplication(t).Y);
 
+            return lerpV.AddVector(otherVector.ScalarMultiplication(t).X, otherVector.ScalarMultiplication(t).Y);
             
 
 
         }
 
-        public void RotateVector(double angle)
+        public Vector2D RotateVector(double angle)
         {
             //Rotate the vector by angle Ɵ using the following equations:
             //New x = x cos Ɵ – y sin Ɵ
             //New y = x sin Ɵ +y cos Ɵ
+            
+            double rotatedX = X * MATH.Cos(angle) - Y * MATH.Sin(angle);
+            double rotatedY = X * MATH.Sin(angle) + Y * MATH.Cos(angle);
+            
+            Vector rotatedV = new Vector2D(rotatedX, rotatedY);
+            
+            return rotatedV;
         }
     }
 }
