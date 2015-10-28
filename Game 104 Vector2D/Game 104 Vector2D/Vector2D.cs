@@ -74,7 +74,7 @@ namespace Game_104_Vector2D
         public Vector2D ScalarMultiplication(double scalar)
         {
 
-            double scalarY = Y + scalar;
+            double scalarY = Y * scalar;
             double scalarX = X * scalar;
             Vector2D scalarV = new Vector2D(scalarX, scalarY);
             
@@ -115,7 +115,7 @@ namespace Game_104_Vector2D
             //If vector A = [ax, ay] and vector B = [bx, by], 
             //then A·B = axbx + ayby
 
-            return (X * otherVector.X) + (Y * otherVector.Y);
+            return ((X * otherVector.X) + (Y * otherVector.Y));
         }
 
         public double GetAngleBetweenVector(Vector2D otherVector)
@@ -137,11 +137,8 @@ namespace Game_104_Vector2D
             //Then add this vector to the initial starting position A
             //Here is another method which is simpler to use, but is exactly the same as above:
             //New vector = (1 - t)A + tB
-            Vector2D lerpV;
-            lerpV = SubtractVector(ScalarMultiplication(t).X, ScalarMultiplication(t).Y);
 
-            return lerpV.AddVector(otherVector.ScalarMultiplication(t).X, otherVector.ScalarMultiplication(t).Y);
-            
+            return SubtractVector(ScalarMultiplication(t).X, ScalarMultiplication(t).Y).AddVector(otherVector.ScalarMultiplication(t).X, otherVector.ScalarMultiplication(t).Y);
 
 
         }
@@ -152,10 +149,10 @@ namespace Game_104_Vector2D
             //New x = x cos Ɵ – y sin Ɵ
             //New y = x sin Ɵ +y cos Ɵ
             
-            double rotatedX = X * MATH.Cos(angle) - Y * MATH.Sin(angle);
-            double rotatedY = X * MATH.Sin(angle) + Y * MATH.Cos(angle);
+            double rotatedX = X * Math.Cos(angle) - Y * Math.Sin(angle);
+            double rotatedY = X * Math.Sin(angle) + Y * Math.Cos(angle);
             
-            Vector rotatedV = new Vector2D(rotatedX, rotatedY);
+            Vector2D rotatedV = new Vector2D(rotatedX, rotatedY);
             
             return rotatedV;
         }
