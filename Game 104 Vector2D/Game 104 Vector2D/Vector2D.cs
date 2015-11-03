@@ -128,14 +128,7 @@ namespace Game_104_Vector2D
 
         public Vector2D Lerp(Vector2D otherVector, double t)
         {
-            //This stands for Linear IntERPolation. 
-            //It basically walks you along a straight line from one position to another using a 
-            //parameter “t” that varies from 0 to 1
-            //If you are interpolating (lerping)from vector A to vector B, use the following steps:
-            //Find the vector that goes from A to B
-            //Multiply it by the parameter t
-            //Then add this vector to the initial starting position A
-            //Here is another method which is simpler to use, but is exactly the same as above:
+            // 0<= t <= 1
             //New vector = (1 - t)A + tB
 
             return SubtractVector(ScalarMultiplication(t).X, ScalarMultiplication(t).Y).AddVector(otherVector.ScalarMultiplication(t).X, otherVector.ScalarMultiplication(t).Y);
