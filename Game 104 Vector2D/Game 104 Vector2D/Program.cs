@@ -5,60 +5,59 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Game_104_Vector2D
+namespace Game_104_Assignment
 {
     class Program
     {
         static void Main(string[] args)
         {
-            double xA, yA, xB, yB, mag, angle;
-            double scalar = 3;
-            bool run = true;
-            bool response = true;
-            string entry;
-            Vector2D A = new Vector2D(xA, yA);
-            Vector2D B = new Vector2D(xB, yB);
+            Vector2D vec1 = new Vector2D(1.0, 3.0);
+            Vector2D vec2 = new Vector2D(2.0, 4.0);
+            Vector2D vec3 = new Vector2D(1.0, 3.0);
+            Vector2D vec4 = new Vector2D(3.0, 1.0);
+            Matrix2x2 m = new Matrix2x2(vec1, vec2);
+            Matrix2x2 n = new Matrix2x2(vec3, vec4);
+            Matrix2x2 p;
 
-            Console.WriteLine("This is vector A, x = {0} y = {1}", A.X, A.Y);
-            Console.WriteLine("This is vector B, x = {0} y = {1}", B.X, B.Y);
-            A.ScalarMultiplication(scalar);
-            mag = A.GetMagnitude();
-            angle = A.GetAngleInDegrees();
-            Console.WriteLine("This is the scalar multiple of the vector by {0} , x = {1} y = {2}", scalar, A.X, A.Y);
-            Console.WriteLine("This is the angle in degrees: {0}", angle);
-            Console.WriteLine("This is the magnitude: {0}", mag);
+            Console.WriteLine("m is");
 
+            m.WriteMatrix();
 
-            do
-            {
-                Console.WriteLine("This is vector A, x = {0} y = {1}", A.X, A.Y);
-                //Double.Parse(Console.Readline());
+            Console.WriteLine("n is");
 
+            n.WriteMatrix();
 
+            Console.WriteLine("Transpose matrix m");
 
-                do
-                {
-                    Console.WriteLine("Would you like to continue doing vector operations? y/n");
-                    entry = Console.ReadLine();
-                     if (entry == "n" || entry == "N")
-                    {
-                        run = false;
-                        response = true;
-                    }
-                    else if (entry == "y" || entry == "Y")
-                    {
-                        run = true;
-                        response = true;
-                    }
-                    else
-                    {
-                        response = false;
+            m.Transpose();
+            m.WriteMatrix();
 
-                    }
-                } while (response == false);
-               
-            } while (run == true);
+            Console.WriteLine("Add matrix m and n");
+
+            m.AddMatrix(n);
+            m.WriteMatrix();
+
+            Console.WriteLine("subtract matrix m-n");
+            m.SubtractMatrix(n);
+            m.WriteMatrix();
+
+            Console.WriteLine("Multiply m and n");
+
+            p = m.MultiplyMatrix(n);
+            p.WriteMatrix();
+
+            m.SetScalingMatrix(4, 4);
+            m.WriteMatrix();
+
+            m.SetRotationMatrixInDegrees(60.0);
+            m.WriteMatrix();
+
+            m.SetIdentityMatrix();
+            m.WriteMatrix();
+
             
+            Console.ReadLine();
+
         }
     }
 }

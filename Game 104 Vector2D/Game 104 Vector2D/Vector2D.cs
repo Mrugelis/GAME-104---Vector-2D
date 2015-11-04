@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Game_104_Vector2D
+namespace Game_104_Assignment
 {
     class Vector2D
     {
-        double x;
-        double y;
+        private double x;
+        private double y;
 
+        //gets and sets the X value of a Vector2D
         public double X
         {
             get
@@ -24,6 +25,7 @@ namespace Game_104_Vector2D
             }
         }
 
+        //gets and sets the Y value of a Vector2D
         public double Y
         {
             get
@@ -36,56 +38,53 @@ namespace Game_104_Vector2D
             }
         }
 
+        //Creates a new Vector2D with fields xValue and yValue
         public Vector2D(double xValue, double yValue)
         {
             X = xValue;
             Y = yValue;
         }
 
+        //Negates the x value of a Vector2D
         public void NegateX()
         {
             X *= -1;
         }
 
+        //Negates the y value of a Vector2D
         public void NegateY()
         {
             Y *= -1;
         }
     
-
-        public Vector2D AddVector(double xValue, double yValue)
+        //Adds two Vector2D x and y components together to get the resulting addition vector
+        public void AddVector(double xValue, double yValue)
         {
-            double addY = Y + yValue;
-            double addX = X + xValue;
-            Vector2D addV = new Vector2D(addX, addY);
-            
-            return addV;            
+            Y += yValue;
+            X += xValue;         
+        }
+        
+        //Subtracts two Vector2D x and y components to get the resulting addition vector
+        public void SubtractVector(double xValue, double yValue)
+        {
+            Y -= yValue;
+            X -= xValue;     
         }
 
-        public Vector2D SubtractVector(double xValue, double yValue)
+        //Scales the x and y components of a Vector2D by a factor of scalar
+        public void ScalarMultiplication(double scalar)
         {
-            double subtractY = Y - yValue;
-            double subtractX = X - xValue;
-            Vector2D subtractV = new Vector2D(subtractX, subtractY);
-            
-            return subtractV;
+            Y *= scalar;
+            X *= scalar;        
         }
 
-        public Vector2D ScalarMultiplication(double scalar)
-        {
-
-            double scalarY = Y * scalar;
-            double scalarX = X * scalar;
-            Vector2D scalarV = new Vector2D(scalarX, scalarY);
-            
-            return scalarV;           
-        }
-
+        //Gets the magnitude of a Vector2D
         public double GetMagnitude()
         { 
             return Math.Sqrt((X * X) + (Y * Y));
         }
 
+        //Gets the position angle of a Vector2D in degrees
         public double GetAngleInDegrees()
         {
             // For (x, y) in quadrant 1, 0 < θ < π/2.
@@ -96,65 +95,55 @@ namespace Game_104_Vector2D
             return Math.Atan2(X, Y) * (180 / Math.PI);
         }
 
-        //past this is assigment part 2
-        public Vector2D Normalize()
+        //Normalizes a Vector2D, where the resulting normal Vector2D has the same direction but a magnitude of 1
+        public void Normalize()
         {
-            //Divide the vector by it’s magnitude. 
-            //This ensures that the vector magnitude 
-            //is equal to one 
-            double normalX =  X / GetMagnitude();
-            double normalY =  Y / GetMagnitude();
-            Vector2D normalV = new Vector2D(normalX, normalY);
-           
-            return normalV;
-
+            X /= GetMagnitude();
+            Y /= GetMagnitude();        
         }
 
+        //Gets the dot product of two Vector2D objects
         public double GetDotProduct(Vector2D otherVector)
         {
-            //If vector A = [ax, ay] and vector B = [bx, by], 
-            //then A·B = axbx + ayby
-
             return ((X * otherVector.X) + (Y * otherVector.Y));
         }
 
+        //Gets the angle between two Vector2D objects in radians
         public double GetAngleBetweenVector(Vector2D otherVector)
         {
-            //Rearrange the equation A·B = | A || B | cosƟ to return Ɵ
-            //(where | A | is the magnitude of vector A and | B | is the magnitude of vector B) 
-
             return Math.Acos(GetDotProduct(otherVector) / (GetMagnitude() * otherVector.GetMagnitude()));
         }
 
-        public Vector2D Lerp(Vector2D otherVector, double t)
+        //Finds the linear interpolation Vector2D between two Vector2D objects
+        //Using t, to determine the position of the linear interpolation vector is oriented between the two Vector2D objects
+        //t=0 LerpVector = Vector2D being used to call the method Lerp(otherVector,t) , t=1 LerpVector = otherVector
+        public void Lerp(Vector2D otherVector, double t)
         {
-            //This stands for Linear IntERPolation. 
-            //It basically walks you along a straight line from one position to another using a 
-            //parameter “t” that varies from 0 to 1
-            //If you are interpolating (lerping)from vector A to vector B, use the following steps:
-            //Find the vector that goes from A to B
-            //Multiply it by the parameter t
-            //Then add this vector to the initial starting position A
-            //Here is another method which is simpler to use, but is exactly the same as above:
+            //0 <=  t <= 1
             //New vector = (1 - t)A + tB
-
-            return SubtractVector(ScalarMultiplication(t).X, ScalarMultiplication(t).Y).AddVector(otherVector.ScalarMultiplication(t).X, otherVector.ScalarMultiplication(t).Y);
-
-
+            //A-tA + tB
+            if(0 <= t && t <= 1)
+            {
+                Vector2D scaledVA = new Vector2D(X, Y);
+                Vector2D scaledVB = new Vector2D(otherVector.X, otherVector.Y);
+                scaledVA.ScalarMultiplication(t);
+                scaledVB.ScalarMultiplication(t);
+                SubtractVector(scaledVA.X, scaledVA.Y);
+                AddVector(scaledVB.X, scaledVB.Y);
+            }
+            else
+            {
+                Console.WriteLine("Invalid value for t");
+            }
         }
 
-        public Vector2D RotateVector(double angle)
+        //rotates a Vector2D by angle, angle in radians
+        public void RotateVector(double angle)
         {
-            //Rotate the vector by angle Ɵ using the following equations:
-            //New x = x cos Ɵ – y sin Ɵ
-            //New y = x sin Ɵ +y cos Ɵ
-            
             double rotatedX = X * Math.Cos(angle) - Y * Math.Sin(angle);
             double rotatedY = X * Math.Sin(angle) + Y * Math.Cos(angle);
-            
-            Vector2D rotatedV = new Vector2D(rotatedX, rotatedY);
-            
-            return rotatedV;
+            X = rotatedX;
+            Y = rotatedY;
         }
     }
 }
