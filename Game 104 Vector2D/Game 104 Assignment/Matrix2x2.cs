@@ -34,12 +34,14 @@ namespace Game_104_Assignment
             }
         }
 
+        //initializes a Matrix2x2 object with its two columns created with two Vector2D objects
         public Matrix2x2(Vector2D col1, Vector2D col2)
         {
             Column1 = col1;
             Column2 = col2;
         }
 
+        //initializes a Matrix2x2 object with two pairs of doubles, each pair is used to make a Vector2D object that are column1, and column2 of the Matrix2x2
         public Matrix2x2(double e11, double e12, double e21, double e22)
         {
             Vector2D col1 = new Vector2D(e11, e21);
@@ -49,13 +51,14 @@ namespace Game_104_Assignment
 
         }
 
-
+        //Sets an existing Matrix2x2 with two Vector2D objects
         public void SetMatrix(Vector2D col1, Vector2D col2)
         {
             Column1 = col1;
             Column2 = col2;
         }
 
+        //Rotates a Matrix2x2, angle degrees
         public void SetRotationMatrixInDegrees(double angle)
         {
             angle *= Math.PI / 180.0;
@@ -63,24 +66,32 @@ namespace Game_104_Assignment
             Vector2D col2 = new Vector2D(-Math.Sin(angle), Math.Cos(angle));
             SetMatrix(col1, col2);
         }
+
+        //Sets up a scaling Matrix2x2 to be used to scale another Matrix2x2 by the scaleX and scaleY values
         public void SetScalingMatrix(double scaleX, double scaleY)
         {
             Vector2D col1 = new Vector2D(scaleX, 0);
             Vector2D col2 = new Vector2D(0, scaleY);
             SetMatrix(col1, col2);
         }
+
+        //Sets up an identity Matrix2x2 
         public void SetIdentityMatrix()
         {
             Vector2D col1 = new Vector2D(1.0, 0.0);
             Vector2D col2 = new Vector2D(0.0, 1.0);
             SetMatrix(col1, col2);
         }
+
+        //Adds otherMatrix to the current Matrix2x2 and sets the current Matrix2x2 to its sum
         public void AddMatrix(Matrix2x2 otherMatrix)
         {
             Vector2D col1 = new Vector2D((Column1.X + otherMatrix.Column1.X), (Column1.Y + otherMatrix.Column1.Y));
             Vector2D col2 = new Vector2D((Column2.X + otherMatrix.Column2.X), (Column2.Y + otherMatrix.Column2.Y));
             SetMatrix(col1, col2);
         }
+
+        //Subtracts otherMatrix from the current Matrix2x2 and sets the current Matrix2x2 to the difference
         public void SubtractMatrix(Matrix2x2 otherMatrix)
         {
             Vector2D col1 = new Vector2D((Column1.X - otherMatrix.Column1.X), (Column1.Y - otherMatrix.Column1.Y));
@@ -88,6 +99,7 @@ namespace Game_104_Assignment
             SetMatrix(col1, col2);
         }
 
+        //Prints a Matrix2x2
         public void WriteMatrix()
         {
             Console.WriteLine("Matrix is:");
@@ -95,6 +107,7 @@ namespace Game_104_Assignment
             Console.WriteLine("|" + Column1.Y + "  ,  " + Column2.Y + "|");
         }
 
+        //Multiplies two Matrix2x2 objects and returns their product as a new Matrix2x2
         public Matrix2x2 MultiplyMatrix(Matrix2x2 otherMatrix)
         {
             double e11 = Column1.X * otherMatrix.Column1.X + Column2.X * otherMatrix.Column1.Y;
@@ -106,6 +119,7 @@ namespace Game_104_Assignment
             return newMatrix;
         }
 
+        //Sets a Matrix2x2 as its transpose
         public void Transpose()
         {
             double e12 = Column1.Y;
@@ -114,11 +128,13 @@ namespace Game_104_Assignment
             Column1.Y = e21;
         }
 
+        //Returns the determinant of a Matrix2x2
         public double GetDeterminant()
         {
            return (Column1.X * Column2.Y) - (Column2.X * Column1.Y);
         }
 
+        //Finds the inverse of a Matrix2x2 and then sets it as the result
         public void Inverse()
         {
             double d = GetDeterminant();
