@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game_104_Assignment
-{
     class Matrix2x2
     {
         //vector2D property defining column1 of matrix2x2
@@ -155,4 +153,3 @@ namespace Game_104_Assignment
             SetMatrix(invCol1, invCol2);
         }
     }
-}
