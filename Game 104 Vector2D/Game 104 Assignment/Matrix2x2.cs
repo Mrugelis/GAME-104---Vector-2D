@@ -8,9 +8,12 @@ namespace Game_104_Assignment
 {
     class Matrix2x2
     {
+        //vector2D property defining column1 of matrix2x2
         private Vector2D column1;
+        //Vector2D property defining column2 of matrix2x2
         private Vector2D column2;
 
+        //column1 accessor/mutator
         public Vector2D Column1
         {
             get
@@ -22,6 +25,7 @@ namespace Game_104_Assignment
                 column1 = value;
             }
         }
+        //column2 accessor/mutator
         public Vector2D Column2
         {
             get
