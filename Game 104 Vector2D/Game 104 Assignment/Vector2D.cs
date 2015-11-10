@@ -9,10 +9,12 @@ namespace Game_104_Assignment
 {
     class Vector2D
     {
+        //double x property for Vector2D
         private double x;
+        //double y property for Vector2D 
         private double y;
-
-        //gets and sets the X value of a Vector2D
+        
+        //x mutator/accessor
         public double X
         {
             get
@@ -25,7 +27,7 @@ namespace Game_104_Assignment
             }
         }
 
-        //gets and sets the Y value of a Vector2D
+        //y mutator/accessor
         public double Y
         {
             get
