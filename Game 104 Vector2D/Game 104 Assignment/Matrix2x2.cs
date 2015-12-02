@@ -140,6 +140,7 @@ using System.Threading.Tasks;
         public void Inverse()
         {
             double d = GetDeterminant();
+            if(d!=0){
             Column2.NegateX();
             Column1.NegateY();
             double ie11 = Column2.Y / d;
@@ -149,7 +150,11 @@ using System.Threading.Tasks;
 
             Vector2D invCol1 = new Vector2D(ie11, ie21);
             Vector2D invCol2 = new Vector2D(ie12, ie22);
-
+            
             SetMatrix(invCol1, invCol2);
+            }
+            else{
+                Console.WriteLine("Matrix cannot be inversed");
+            }
         }
     }
